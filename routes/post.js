@@ -1,6 +1,5 @@
 const express = require('express');
 const Post = require('../models/Post');
-const { json } = require('express');
 const router = express.Router();
 
 // GET ALL POSTS
@@ -12,7 +11,14 @@ router.get('/', (req, res, next) => {
             .then(docs => {
                 const response = {
                     count: docs.length,
-                    products: docs
+                    products: docs.map(doc => {
+                        return {
+                            _id: doc.id,
+                            title: doc.title,
+                            description: doc.description,
+                            url: `${req.protocol}://${req.get('host')}/posts/${doc.id}`
+                        }
+                    })
                 }
                 res.status(200).json(response);
             })

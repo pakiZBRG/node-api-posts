@@ -1,5 +1,6 @@
 const express = require('express');
-const postsRoutes = require('./routes/post')
+const postsRoutes = require('./routes/post');
+const productsRoutes = require('./routes/products');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require("dotenv/config");
@@ -12,6 +13,7 @@ app.use(express.json());
 
 // Routes
 app.use('/posts', postsRoutes);
+app.use('/products', productsRoutes)
 
 mongoose.connect(process.env.DB_CONNECTION,{ useNewUrlParser: true, useUnifiedTopology: true });
 
